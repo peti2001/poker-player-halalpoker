@@ -27,7 +27,7 @@ class Player:
                                 return 250
                             if "minimum_raise" in game_state.keys():
                                 print("Minimum raise:", game_state["minimum_raise"])
-                                if game_state["minimum_raise"] < 100:
+                                if game_state["minimum_raise"] < 200:
                                     print("Kicsi emeles", player["hole_cards"])
                                     return game_state["minimum_raise"] + 2 * game_state["big_blind"]
         
