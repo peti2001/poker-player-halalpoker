@@ -69,7 +69,7 @@ class Player:
                                         raise_limit = 800
                                     print("RAise limit:", raise_limit)
                                 if game_state["minimum_raise"] < raise_limit:
-                                    print("Kicsi emeles", raise_limit)
+                                    print("Kicsi emeles. Minimum raise:", game_state["minimum_raise"], " Big Blind", game_state["big_blind"])
                                     return game_state["minimum_raise"] + 2 * game_state["big_blind"]
         
         return 0
