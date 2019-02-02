@@ -5,6 +5,7 @@ class Player:
     def betRequest(self, game_state):
         # for player in game_state['players']:
         #     print(player['name'])
+        print("Peti okos")
         return 1000
 
     def showdown(self, game_state):
