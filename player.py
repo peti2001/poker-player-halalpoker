@@ -21,10 +21,10 @@ class Player:
                         if len(player["hole_cards"]) >=2:
                             if player["hole_cards"][0]["rank"] == player["hole_cards"][1]["rank"]:
                                 print("We have pair. ALL IN", player["hole_cards"])
-                                return 250
+                                return 500
                             if (player["hole_cards"][0]["rank"] in ["10", "J", "Q", "K", "A"]) and (player["hole_cards"][1]["rank"] in ["10", "J", "Q", "K", "A"]):
                                 print("We have high cards. ALL IN", player["hole_cards"])
-                                return 250
+                                return 500
                             if "minimum_raise" in game_state.keys():
                                 print("Minimum raise:", game_state["minimum_raise"])
                                 if game_state["minimum_raise"] < 200:
