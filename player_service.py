@@ -43,6 +43,7 @@ class PlayerService(BaseHTTPServer.BaseHTTPRequestHandler):
             except BaseException as e:
                 print("EXCEPTION: ", e)
                 response = 0
+            print("RESPONSE: ", response)
         elif action == 'showdown':
             Player().showdown(game_state)
         elif action == 'version':
