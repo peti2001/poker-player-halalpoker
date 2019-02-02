@@ -28,10 +28,9 @@ class Player:
 
         ############################# par erosseg teszt #############################################
 
-        rank_d = self.calc_rank_count(game_state["players"][0]["hole_cards"], game_state["community_cards"])
-        strength = self.calc_strength(rank_d)
+        hand_strength = self.calc_strength(game_state)
 
-        print("Card strength is {}".format(strength))
+        print("Card strength is {}".format(hand_strength))
         #############################################################################################
 
         print("GAME DATA", game_state)
@@ -69,19 +68,30 @@ class Player:
     def showdown(self, game_state):
         pass
 
-    def calc_rank_count(self, hole_cards, community_cards):
+    def calc_strength(self, game_state):
+
+        hole_cards = game_state["players"][0]["hole_cards"]
+        community_cards = game_state["community_cards"]
+        colors = dict()
         ranks = dict()
         for card in hole_cards + community_cards:
             if card["rank"] not in ranks.keys():
                 ranks[card["rank"]] = 0
             ranks[card["rank"]] += 1
-        return ranks
 
-    def calc_strength(self, rank_dict):
+            if card["suit"] not in colors.keys():
+                colors[card["suit"]] = 0
+
+            colors[card["suit"]] += 1
+        print(colors)
+        print(ranks)
+        if max(colors.values()) > 4:
+            return 4
+
         two_same = 0
         three_same = 0
         four_same = 0
-        for rank, val in rank_dict.items():
+        for rank, val in ranks.items():
             if val == 2:
                 two_same += 1
             if val == 3:
@@ -89,9 +99,9 @@ class Player:
             if val == 4:
                 four_same += 1
         if four_same == 1:
-            return 5
+            return 6
         if (three_same == 1) & (two_same == 1):
-            return 4
+            return 5
         if (three_same == 1) & (two_same == 0):
             return 3
         if two_same == 2:
@@ -99,6 +109,5 @@ class Player:
         if two_same == 1:
             return 1
         return 0
-
 
 
