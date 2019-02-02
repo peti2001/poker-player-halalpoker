@@ -20,6 +20,13 @@ class Player:
         
         return c
 
+    def is_green_active(self, game_state):
+        for player in game_state['players']:
+            if (player['name'] == 'AllIn') and (player['status'] == 'active'):
+                return True
+        
+        return False
+
     def betRequest(self, game_state):
 
         ############################# Valoszinuseg Tesztelo kod #####################################
@@ -60,6 +67,8 @@ class Player:
                                 print("Minimum raise:", game_state["minimum_raise"])
                                 raise_limit = 100
                                 if self.count_out_players(game_state) >= 2:
+                                    if self.is_green_active(game_state):
+                                        raise_limit = 1600
                                     raise_limit = 400
                                 if game_state["minimum_raise"] < raise_limit:
                                     print("Kicsi emeles", player["hole_cards"])
