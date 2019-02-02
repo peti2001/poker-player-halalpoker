@@ -24,15 +24,15 @@ class Player:
 
         ############################# Valoszinuseg Tesztelo kod #####################################
 
-        my_card_list = self.transform_cards(game_state["players"][0]["hole_cards"])
-        community_cards = self.transform_cards(game_state["community_cards"])
+        # my_card_list = self.transform_cards(game_state["players"][0]["hole_cards"])
+        # community_cards = self.transform_cards(game_state["community_cards"])
 
-        hole_cards = gen_cards(my_card_list)
-        community_card = gen_cards(community_cards)
-        nb_players = len(game_state["players"])
-        p = estimate_hole_card_win_rate(nb_simulation=1000, nb_player=nb_players, hole_card=hole_cards,
-                                        community_card=community_card)
-        print("Porbability of winning with current hand: {}".format(p))
+        # hole_cards = gen_cards(my_card_list)
+        # community_card = gen_cards(community_cards)
+        # nb_players = len(game_state["players"])
+        # p = estimate_hole_card_win_rate(nb_simulation=1000, nb_player=nb_players, hole_card=hole_cards,
+        #                                 community_card=community_card)
+        # print("Porbability of winning with current hand: {}".format(p))
 
 
         #############################################################################################
