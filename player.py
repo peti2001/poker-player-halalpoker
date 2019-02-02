@@ -48,15 +48,19 @@ class Player:
                         if len(player["hole_cards"]) >=2:
                             if player["hole_cards"][0]["rank"] == player["hole_cards"][1]["rank"]:
                                 print("We have pair. ALL IN", player["hole_cards"])
-                                return 250
+                                self.count_out_players(game_state) >= 2:
+                                    return 4000
+                                return 500
                             if (player["hole_cards"][0]["rank"] in ["10", "J", "Q", "K", "A"]) and (player["hole_cards"][1]["rank"] in ["10", "J", "Q", "K", "A"]):
                                 print("We have high cards. ALL IN", player["hole_cards"])
-                                return 250
+                                self.count_out_players(game_state) >= 2:
+                                    return 4000
+                                return 500
                             if "minimum_raise" in game_state.keys():
                                 print("Minimum raise:", game_state["minimum_raise"])
                                 raise_limit = 100
                                 if self.count_out_players(game_state) >= 2:
-                                    raise_limit = 200
+                                    raise_limit = 400
                                 if game_state["minimum_raise"] < raise_limit:
                                     print("Kicsi emeles", player["hole_cards"])
                                     return game_state["minimum_raise"] + 2 * game_state["big_blind"]
