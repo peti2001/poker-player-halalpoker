@@ -62,7 +62,7 @@ class Player:
                                 if self.count_out_players(game_state) >= 2:
                                     raise_limit = 200
                                     if self.is_green_active(game_state):
-                                        raise_limit = 1600
+                                        raise_limit = 800
                                 if game_state["minimum_raise"] < raise_limit:
                                     print("Kicsi emeles", player["hole_cards"])
                                     return game_state["minimum_raise"] + 2 * game_state["big_blind"]
