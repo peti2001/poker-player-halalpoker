@@ -60,7 +60,7 @@ class Player:
                                 print("Minimum raise:", game_state["minimum_raise"])
                                 raise_limit = 100
                                 if self.count_out_players(game_state) >= 2:
-                                    raise_limit = 400
+                                    raise_limit = 200
                                     if self.is_green_active(game_state):
                                         raise_limit = 1600
                                 if game_state["minimum_raise"] < raise_limit:
