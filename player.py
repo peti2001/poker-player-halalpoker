@@ -18,14 +18,12 @@ class Player:
                             if (player["hole_cards"][0]["rank"] in ["10", "J", "Q", "K", "A"]) and (player["hole_cards"][1]["rank"] in ["10", "J", "Q", "K", "A"]):
                                 print("We have high cards. ALL IN", player["hole_cards"])
                                 return 1000
-                            # if "minimum_raise" is player:
-                            #     print("Minimum raise:", player["minimum_raise"])
-                            #     if int(player["minimum_raise"]) < 100:
-                            #         print("Kicsi emeles", player["hole_cards"])
-                            #         return player["minimum_raise"] + 2 * game_state["big_blind"]
+                            if "minimum_raise" in game_state.keys():
+                                print("Minimum raise:", game_state["minimum_raise"])
+                                if game_state["minimum_raise"] < 100:
+                                    print("Kicsi emeles", player["hole_cards"])
+                                    return game_state["minimum_raise"] + 2 * game_state["big_blind"]
         print("MINUMUM RAISE1", game_state['minimum_raise'])
-        print("MINUMUM RAISE2", game_state[u'minimum_raise'])
-        print("MINUMUM RAISE3", game_state["minimum_raise"])
         return 0
 
     def showdown(self, game_state):
