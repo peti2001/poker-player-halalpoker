@@ -5,6 +5,7 @@ class Player:
     def betRequest(self, game_state):
         print("GAME DATA", game_state)
         print("GAME DATA KEYS", game_state.keys())
+    
         if "players" in game_state.keys():
             for player in game_state['players']:
                 if "name" in player.keys() and player['name'] == "HalalPoker":
@@ -22,6 +23,9 @@ class Player:
                             #     if int(player["minimum_raise"]) < 100:
                             #         print("Kicsi emeles", player["hole_cards"])
                             #         return player["minimum_raise"] + 2 * game_state["big_blind"]
+        print("MINUMUM RAISE1", game_state['minimum_raise'])
+        print("MINUMUM RAISE2", game_state[u'minimum_raise'])
+        print("MINUMUM RAISE3", game_state["minimum_raise"])
         return 0
 
     def showdown(self, game_state):
