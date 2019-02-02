@@ -6,17 +6,25 @@ class Player:
 
     def betRequest(self, game_state):
 
+        ############################# par erosseg teszt #############################################
+
+        rank_d = self.calc_rank_count(game_state["players"][0]["hole_cards"], game_state["community_cards"])
+        strength = self.calc_strength(rank_d)
+
+        print("Card strength is {}".format(strength))
+        #############################################################################################
+
         ############################# Valoszinuseg Tesztelo kod #####################################
 
-        my_card_list = self.transform_cards(game_state["players"][0]["hole_cards"])
-        community_cards = self.transform_cards(game_state["community_cards"])
+#        #my_card_list = self.transform_cards(game_state["players"][0]["hole_cards"])
+        #community_cards = self.transform_cards(game_state["community_cards"])
 
-        hole_cards = gen_cards(my_card_list)
-        community_card = gen_cards(community_cards)
-        nb_players = len(game_state["players"])
-        p = estimate_hole_card_win_rate(nb_simulation=1000, nb_player=nb_players, hole_card=hole_cards,
-                                        community_card=community_card)
-        print("Porbability of winning with current hand: {}".format(p))
+        #hole_cards = gen_cards(my_card_list)
+        #community_card = gen_cards(community_cards)
+        #nb_players = len(game_state["players"])
+        #p = estimate_hole_card_win_rate(nb_simulation=1000, nb_player=nb_players, hole_card=hole_cards,
+#                                        community_card=community_card)
+        #print("Porbability of winning with current hand: {}".format(p))
 
 
         #############################################################################################
@@ -43,21 +51,36 @@ class Player:
     def showdown(self, game_state):
         pass
 
-    def transform_cards(self, card_list):
-        card_map_1 = {"clubs": "C", "diamonds": "D", "hearts": "H", "spades": "S"}
-        card_map_2 = dict()
-        for i in range(1, 10):
-            card_map_2["{}".format(i)] = "{}".format(i)
-        card_map_2["10"] = "T"
-        card_map_2["A"] = "A"
-        card_map_2["J"] = "J"
-        card_map_2["Q"] = "Q"
-        card_map_2["K"] = "K"
+    def calc_rank_count(self, hole_cards, community_cards):
+        ranks = dict()
+        for card in hole_cards + community_cards:
+            if card["rank"] not in ranks.keys():
+                ranks[card["rank"]] = 0
+            ranks[card["rank"]] += 1
+        return ranks
 
-        output = list()
-        for card in card_list:
-            output.append(card_map_1.get(card["suit"]) + card_map_2.get(card["rank"]))
-        return output
+    def calc_strength(self, rank_dict):
+        two_same = 0
+        three_same = 0
+        four_same = 0
+        for rank, val in rank_dict.items():
+            if val == 2:
+                two_same += 1
+            if val == 3:
+                three_same += 1
+            if val == 4:
+                four_same += 1
+        if four_same == 1:
+            return 5
+        if (three_same == 1) & (two_same == 1):
+            return 4
+        if (three_same == 1) & (two_same == 0):
+            return 3
+        if two_same == 2:
+            return 2
+        if two_same == 1:
+            return 1
+        return 0
 
 
 
