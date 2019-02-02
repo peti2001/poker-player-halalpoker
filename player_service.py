@@ -1,9 +1,10 @@
 import time
 import cgi
 import json
-import http.server as BaseHTTPServer
+from http import server
 import os
 from player import Player
+from urllib.parse import parse_qs
 
 
 HOST_NAME = '0.0.0.0'
@@ -13,7 +14,7 @@ else:
     PORT_NUMBER = 9000
 
 
-class PlayerService(BaseHTTPServer.BaseHTTPRequestHandler):
+class PlayerService(server.BaseHTTPRequestHandler):
 
     def do_POST(self):
 
@@ -26,7 +27,7 @@ class PlayerService(BaseHTTPServer.BaseHTTPRequestHandler):
             postvars = cgi.parse_multipart(self.rfile, pdict)
         elif ctype == 'application/x-www-form-urlencoded':
             length = int(self.headers.getheader('content-length'))
-            postvars = cgi.parse_qs(self.rfile.read(length), keep_blank_values=1)
+            postvars = parse_qs(self.rfile.read(length), keep_blank_values=1)
         else:
             postvars = {}
 
@@ -36,7 +37,6 @@ class PlayerService(BaseHTTPServer.BaseHTTPRequestHandler):
             game_state = json.loads(postvars['game_state'][0])
         else:
             game_state = {}
-
 
         response = ''
         if action == 'bet_request':
@@ -48,8 +48,9 @@ class PlayerService(BaseHTTPServer.BaseHTTPRequestHandler):
 
         self.wfile.write(response)
 
+
 if __name__ == '__main__':
-    server_class = BaseHTTPServer.HTTPServer
+    server_class = server.HTTPServer
     httpd = server_class((HOST_NAME, PORT_NUMBER), PlayerService)
     print(time.asctime(), "Server Starts - %s:%s" % (HOST_NAME, PORT_NUMBER))
     try:
