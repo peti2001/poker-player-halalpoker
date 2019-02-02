@@ -43,9 +43,9 @@ class Player:
                         print("NUMBER OF OUT PLAYERS", self.count_out_players(game_state))
                         print("HANDS STRENGHT", hand_strength)
                         if len(player["hole_cards"]) >=2:
-                            if hand_strength >= 2:
-                                print("We have something good: ", hand_strength)
-                                return 4000
+                            # if hand_strength >= 2:
+                            #     print("We have something good: ", hand_strength)
+                            #     return 4000
                             if (player["hole_cards"][0]["rank"] == player["hole_cards"][1]["rank"]) and (player["hole_cards"][1]["rank"] in ["7" ,"8", "9", "10", "J", "Q", "K", "A"]):
                                 print("We have pair. ALL IN", player["hole_cards"])
                                 if self.count_out_players(game_state) >= 2:
