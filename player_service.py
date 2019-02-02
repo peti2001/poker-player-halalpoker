@@ -1,13 +1,16 @@
 import time
 import cgi
 import json
-import BaseHTTPServer
+import http.server as BaseHTTPServer
 import os
 from player import Player
 
 
 HOST_NAME = '0.0.0.0'
-PORT_NUMBER = os.environ.has_key('PORT') and int(os.environ['PORT']) or 9000
+if 'PORT' in os.environ.keys():
+    PORT_NUMBER = int(os.environ.get('PORT'))
+else:
+    PORT_NUMBER = 9000
 
 
 class PlayerService(BaseHTTPServer.BaseHTTPRequestHandler):
