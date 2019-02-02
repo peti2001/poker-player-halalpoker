@@ -21,32 +21,31 @@ class PlayerService(server.BaseHTTPRequestHandler):
         self.send_response(200)
         self.send_header("Content-type", "application/json")
         self.end_headers()
-
-        ctype, pdict = cgi.parse_header(self.headers.getheader('content-type'))
+        ctype, pdict = cgi.parse_header(self.headers.get('content-type'))
         if ctype == 'multipart/form-data':
             postvars = cgi.parse_multipart(self.rfile, pdict)
         elif ctype == 'application/x-www-form-urlencoded':
-            length = int(self.headers.getheader('content-length'))
+            length = int(self.headers.get('content-length'))
             postvars = parse_qs(self.rfile.read(length), keep_blank_values=1)
         else:
             postvars = {}
 
-        action = postvars['action'][0]
+        action = postvars[b'action'][0]
 
         if 'game_state' in postvars:
             game_state = json.loads(postvars['game_state'][0])
         else:
             game_state = {}
 
-        response = ''
-        if action == 'bet_request':
-            response = Player().betRequest(game_state)
-        elif action == 'showdown':
+        response = b''
+        if action == b'bet_request':
+            response = str(Player().betRequest(game_state))
+        elif action == b'showdown':
             Player().showdown(game_state)
-        elif action == 'version':
-            response = Player.VERSION
+        elif action == b'version':
+            response = str(Player.VERSION)
 
-        self.wfile.write(response)
+        self.wfile.write(bytes(response, encoding="utf-8"))
 
 
 if __name__ == '__main__':
